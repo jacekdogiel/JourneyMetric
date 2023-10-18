@@ -9,6 +9,90 @@ import SwiftUI
 import Combine
 import CoreLocation
 
+class StationDataRepository: DataRepository {
+    private let apiClient: APIClient
+    private let stationsFileName = "stations.json"
+    private let keywordsFileName = "keywords.json"
+    private let lastFetchDateKey = "lastFetchDateKey"
+
+    init(apiClient: APIClient = APIClient()) {
+        self.apiClient = apiClient
+    }
+
+    func getStations() async throws -> [Station] {
+        if try await shouldFetchData() {
+            try await fetchData()
+        }
+        return try loadStationsFromFile()
+    }
+
+    func getKeywords() async throws -> [Keyword] {
+        if try await shouldFetchData() {
+            try await fetchData()
+        }
+        return try loadKeywordsFromFile()
+    }
+
+    private func shouldFetchData() async throws -> Bool {
+        guard let lastFetchDate = try? loadLastFetchDate() else {
+            return true
+        }
+
+        let currentDate = Date()
+        let timeInterval = currentDate.timeIntervalSince(lastFetchDate)
+        return timeInterval > 24 * 60 * 60
+    }
+
+    private func fetchData() async throws {
+        let fetchedStations = try await apiClient.fetchStations()
+        let fetchedKeywords = try await apiClient.fetchKeywords()
+
+        try saveStationsToFile(stations: fetchedStations)
+        try saveKeywordsToFile(keywords: fetchedKeywords)
+        try saveLastFetchDate()
+    }
+
+    private func saveStationsToFile(stations: [Station]) throws {
+        let data = try JSONEncoder().encode(stations)
+        try data.write(to: fileURL(for: stationsFileName))
+    }
+
+    private func loadStationsFromFile() throws -> [Station] {
+        let data = try Data(contentsOf: fileURL(for: stationsFileName))
+        let stations = try JSONDecoder().decode([Station].self, from: data)
+        return stations
+    }
+
+    private func saveKeywordsToFile(keywords: [Keyword]) throws {
+        let data = try JSONEncoder().encode(keywords)
+        try data.write(to: fileURL(for: keywordsFileName))
+    }
+
+    private func loadKeywordsFromFile() throws -> [Keyword] {
+        let data = try Data(contentsOf: fileURL(for: keywordsFileName))
+        let keywords = try JSONDecoder().decode([Keyword].self, from: data)
+        return keywords
+    }
+
+    private func saveLastFetchDate() throws {
+        let currentDate = Date()
+        UserDefaults.standard.set(currentDate, forKey: lastFetchDateKey)
+    }
+
+    private func loadLastFetchDate() throws -> Date {
+        guard let lastFetchDate = UserDefaults.standard.object(forKey: lastFetchDateKey) as? Date else {
+            throw NSError(domain: "Invalid Date", code: 0, userInfo: nil)
+        }
+        return lastFetchDate
+    }
+
+    private func fileURL(for fileName: String) -> URL {
+        let dataDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        return dataDirectory.appendingPathComponent(fileName)
+    }
+}
+
+
 class APIClient {
     private let baseURL: String = "https://koleo.pl/api/v2/main/"
 
@@ -43,6 +127,11 @@ class APIClient {
     }
 }
 
+protocol DataRepository {
+    func getStations() async throws -> [Station]
+    func getKeywords() async throws -> [Keyword]
+}
+
 @MainActor
 class StationViewModel: ObservableObject {
     @Published var startStationText: String = ""
@@ -56,7 +145,7 @@ class StationViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var hasError: Bool = false
     
-    private let apiClient: APIClient
+    private let dataRepository: DataRepository
     private var cancellables: Set<AnyCancellable> = []
     
     private var startStationTextPublisher: AnyPublisher<String, Never> {
@@ -73,8 +162,8 @@ class StationViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    init(apiClient: APIClient = APIClient()) {
-        self.apiClient = apiClient
+    init(dataRepository: DataRepository = StationDataRepository()) {
+        self.dataRepository = dataRepository
         
         startStationTextPublisher
             .sink { [weak self] text in
@@ -102,8 +191,8 @@ class StationViewModel: ObservableObject {
             isLoading = true
             hasError = false
             do {
-                stations = try await apiClient.fetchStations()
-                keywords = try await apiClient.fetchKeywords()
+                stations = try await dataRepository.getStations()
+                keywords = try await dataRepository.getKeywords()
             } catch {
                 hasError = true
             }
@@ -158,6 +247,7 @@ struct ContentView<Content: View>: View {
 
     var body: some View {
         content
+            .background(Color(white: 0.95))
     }
     
     @ViewBuilder
@@ -178,6 +268,7 @@ struct ContentView<Content: View>: View {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle())
         }
+        .padding()
     }
     
     private var errorView: some View {
@@ -188,6 +279,7 @@ struct ContentView<Content: View>: View {
             Button("Ponów") {
                 viewModel.fetch()
             }
+            .padding()
         }
     }
     
@@ -195,9 +287,11 @@ struct ContentView<Content: View>: View {
         NavigationStack {
             Form {
                 Section(header: Text("Stacja początkowa")) {
-                    TextField("Wpisz nazwę stacji", text: $viewModel.startStationText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.vertical, 8)
+                    TextField("Wybierz stację", text: $viewModel.startStationText)
+                        .font(.title3)
+                        .padding(8)
+                        .background(Color(white: 0.9))
+                        .cornerRadius(8)
                         .disableAutocorrection(true)
                         .onTapGesture {
                             self.isStartStationSelectionPresented = true
@@ -208,9 +302,11 @@ struct ContentView<Content: View>: View {
                 }
                 
                 Section(header: Text("Stacja docelowa")) {
-                    TextField("Wpisz nazwę stacji", text: $viewModel.endStationText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.vertical, 8)
+                    TextField("Wybierz stację", text: $viewModel.endStationText)
+                        .font(.title3)
+                        .padding(8)
+                        .background(Color(white: 0.9))
+                        .cornerRadius(8)
                         .disableAutocorrection(true)
                         .onTapGesture {
                             self.isEndStationSelectionPresented = true
@@ -222,9 +318,11 @@ struct ContentView<Content: View>: View {
                 
                 Section(header: Text("Odległość")) {
                     Text(viewModel.calculateDistance())
+                        .padding(8)
                 }
             }
         }
+        .padding()
     }
 }
 
@@ -234,7 +332,7 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct Station: Identifiable, Decodable {
+struct Station: Identifiable, Codable, Equatable {
     let id: Int
     let name: String
     var latitude: Double?
@@ -262,8 +360,10 @@ struct StationSelectionView: View {
     var body: some View {
         VStack {
             TextField("Wpisz nazwę stacji", text: $stationName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.vertical, 8)
+                .font(.title3)
+                .padding(8)
+                .background(Color(white: 0.9))
+                .cornerRadius(8)
                 .disableAutocorrection(true)
             
             List(searchedStations, id: \.id) { station in
@@ -274,10 +374,17 @@ struct StationSelectionView: View {
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     Text(station.name)
+                        .padding(8)
+                        .background(selectedStation == station ? Color.blue : Color.clear)
+                        .cornerRadius(8)
+                        .foregroundColor(selectedStation == station ? .white : .primary)
                 }
             }
+            .listStyle(PlainListStyle())
         }
         .padding()
+        .background(Color(white: 0.95))
     }
 }
+
 
