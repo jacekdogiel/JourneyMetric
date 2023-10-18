@@ -13,7 +13,7 @@ struct JourneyMetricApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: viewModel,
+            DashboardView(viewModel: viewModel,
                         startStationSelection: StationSelectionView(
                             searchedStations: $viewModel.searchedStartStations,
                             selectedStation: $viewModel.selectedStartStation,

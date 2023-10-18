@@ -8,18 +8,40 @@
 
 /* Begin PBXBuildFile section */
 		B28B03D82ADE7FC200C6B24C /* JourneyMetricApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03D72ADE7FC200C6B24C /* JourneyMetricApp.swift */; };
-		B28B03DA2ADE7FC200C6B24C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03D92ADE7FC200C6B24C /* ContentView.swift */; };
+		B28B03DA2ADE7FC200C6B24C /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03D92ADE7FC200C6B24C /* DashboardView.swift */; };
 		B28B03DC2ADE7FC300C6B24C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B28B03DB2ADE7FC300C6B24C /* Assets.xcassets */; };
 		B28B03E02ADE7FC300C6B24C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B28B03DF2ADE7FC300C6B24C /* Preview Assets.xcassets */; };
+		B28B03EC2AE017F900C6B24C /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03EB2AE017F900C6B24C /* FileStorage.swift */; };
+		B28B03EF2AE0182000C6B24C /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03EE2AE0182000C6B24C /* UserDefaultsStorage.swift */; };
+		B28B03F12AE0184900C6B24C /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03F02AE0184900C6B24C /* DataRepository.swift */; };
+		B28B03F32AE0187900C6B24C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03F22AE0187900C6B24C /* APIClient.swift */; };
+		B28B03F52AE018B500C6B24C /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03F42AE018B500C6B24C /* Station.swift */; };
+		B28B03F72AE018D800C6B24C /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03F62AE018D800C6B24C /* Keyword.swift */; };
+		B28B03F92AE0190300C6B24C /* StationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03F82AE0190300C6B24C /* StationSelectionView.swift */; };
+		B28B03FB2AE0193A00C6B24C /* StationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FA2AE0193A00C6B24C /* StationViewModel.swift */; };
+		B28B03FD2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */; };
+		B28B03FF2AE019BE00C6B24C /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */; };
+		B28B04012AE019EE00C6B24C /* StationDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04002AE019EE00C6B24C /* StationDataRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B28B03D42ADE7FC200C6B24C /* JourneyMetric.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneyMetric.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28B03D72ADE7FC200C6B24C /* JourneyMetricApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyMetricApp.swift; sourceTree = "<group>"; };
-		B28B03D92ADE7FC200C6B24C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B28B03D92ADE7FC200C6B24C /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		B28B03DB2ADE7FC300C6B24C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B28B03DD2ADE7FC300C6B24C /* JourneyMetric.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JourneyMetric.entitlements; sourceTree = "<group>"; };
 		B28B03DF2ADE7FC300C6B24C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B28B03EB2AE017F900C6B24C /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
+		B28B03EE2AE0182000C6B24C /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		B28B03F02AE0184900C6B24C /* DataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepository.swift; sourceTree = "<group>"; };
+		B28B03F22AE0187900C6B24C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		B28B03F42AE018B500C6B24C /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		B28B03F62AE018D800C6B24C /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
+		B28B03F82AE0190300C6B24C /* StationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectionView.swift; sourceTree = "<group>"; };
+		B28B03FA2AE0193A00C6B24C /* StationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewModel.swift; sourceTree = "<group>"; };
+		B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorageImpl.swift; sourceTree = "<group>"; };
+		B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
+		B28B04002AE019EE00C6B24C /* StationDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDataRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +74,11 @@
 		B28B03D62ADE7FC200C6B24C /* JourneyMetric */ = {
 			isa = PBXGroup;
 			children = (
+				B28B03E92AE017C800C6B24C /* Services */,
+				B28B03E82AE017B300C6B24C /* Models */,
+				B28B03E72AE017A600C6B24C /* ViewModels */,
+				B28B03E62AE0179E00C6B24C /* Views */,
 				B28B03D72ADE7FC200C6B24C /* JourneyMetricApp.swift */,
-				B28B03D92ADE7FC200C6B24C /* ContentView.swift */,
 				B28B03DB2ADE7FC300C6B24C /* Assets.xcassets */,
 				B28B03DD2ADE7FC300C6B24C /* JourneyMetric.entitlements */,
 				B28B03DE2ADE7FC300C6B24C /* Preview Content */,
@@ -67,6 +92,54 @@
 				B28B03DF2ADE7FC300C6B24C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B28B03E62AE0179E00C6B24C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B28B03D92ADE7FC200C6B24C /* DashboardView.swift */,
+				B28B03F82AE0190300C6B24C /* StationSelectionView.swift */,
+				B28B03FA2AE0193A00C6B24C /* StationViewModel.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B28B03E72AE017A600C6B24C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B28B03E82AE017B300C6B24C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B28B03F42AE018B500C6B24C /* Station.swift */,
+				B28B03F62AE018D800C6B24C /* Keyword.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B28B03E92AE017C800C6B24C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B28B03EA2AE017DD00C6B24C /* Protocols */,
+				B28B03F22AE0187900C6B24C /* APIClient.swift */,
+				B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */,
+				B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */,
+				B28B04002AE019EE00C6B24C /* StationDataRepository.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B28B03EA2AE017DD00C6B24C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B28B03EB2AE017F900C6B24C /* FileStorage.swift */,
+				B28B03EE2AE0182000C6B24C /* UserDefaultsStorage.swift */,
+				B28B03F02AE0184900C6B24C /* DataRepository.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +212,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B28B03DA2ADE7FC200C6B24C /* ContentView.swift in Sources */,
+				B28B03EF2AE0182000C6B24C /* UserDefaultsStorage.swift in Sources */,
+				B28B03FD2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift in Sources */,
+				B28B03F12AE0184900C6B24C /* DataRepository.swift in Sources */,
+				B28B03EC2AE017F900C6B24C /* FileStorage.swift in Sources */,
+				B28B03DA2ADE7FC200C6B24C /* DashboardView.swift in Sources */,
+				B28B03FF2AE019BE00C6B24C /* JSONStorage.swift in Sources */,
+				B28B04012AE019EE00C6B24C /* StationDataRepository.swift in Sources */,
+				B28B03F92AE0190300C6B24C /* StationSelectionView.swift in Sources */,
+				B28B03FB2AE0193A00C6B24C /* StationViewModel.swift in Sources */,
 				B28B03D82ADE7FC200C6B24C /* JourneyMetricApp.swift in Sources */,
+				B28B03F72AE018D800C6B24C /* Keyword.swift in Sources */,
+				B28B03F32AE0187900C6B24C /* APIClient.swift in Sources */,
+				B28B03F52AE018B500C6B24C /* Station.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
