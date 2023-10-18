@@ -9,14 +9,31 @@ import SwiftUI
 import Combine
 import CoreLocation
 
+protocol JSONStorage {
+    func save<T: Encodable>(object: T, to fileName: String) throws
+    func load<T: Decodable>(from fileName: String) throws -> T
+}
+
+protocol UserDefaultsStorage {
+    func save(object: Any, forKey key: String)
+    func loadObject(forKey key: String) -> Any?
+}
+
 class StationDataRepository: DataRepository {
     private let apiClient: APIClient
     private let stationsFileName = "stations.json"
     private let keywordsFileName = "keywords.json"
     private let lastFetchDateKey = "lastFetchDateKey"
 
-    init(apiClient: APIClient = APIClient()) {
+    private let jsonStorage: JSONStorage
+    private let userDefaultsStorage: UserDefaultsStorage
+
+    init(apiClient: APIClient = APIClient(),
+         jsonStorage: JSONStorage = FileStorage(),
+         userDefaultsStorage: UserDefaultsStorage = UserDefaultsStorageImpl()) {
         self.apiClient = apiClient
+        self.jsonStorage = jsonStorage
+        self.userDefaultsStorage = userDefaultsStorage
     }
 
     func getStations() async throws -> [Station] {
@@ -53,37 +70,43 @@ class StationDataRepository: DataRepository {
     }
 
     private func saveStationsToFile(stations: [Station]) throws {
-        let data = try JSONEncoder().encode(stations)
-        try data.write(to: fileURL(for: stationsFileName))
+        try jsonStorage.save(object: stations, to: stationsFileName)
     }
 
     private func loadStationsFromFile() throws -> [Station] {
-        let data = try Data(contentsOf: fileURL(for: stationsFileName))
-        let stations = try JSONDecoder().decode([Station].self, from: data)
-        return stations
+        return try jsonStorage.load(from: stationsFileName)
     }
 
     private func saveKeywordsToFile(keywords: [Keyword]) throws {
-        let data = try JSONEncoder().encode(keywords)
-        try data.write(to: fileURL(for: keywordsFileName))
+        try jsonStorage.save(object: keywords, to: keywordsFileName)
     }
 
     private func loadKeywordsFromFile() throws -> [Keyword] {
-        let data = try Data(contentsOf: fileURL(for: keywordsFileName))
-        let keywords = try JSONDecoder().decode([Keyword].self, from: data)
-        return keywords
+        return try jsonStorage.load(from: keywordsFileName)
     }
 
     private func saveLastFetchDate() throws {
         let currentDate = Date()
-        UserDefaults.standard.set(currentDate, forKey: lastFetchDateKey)
+        userDefaultsStorage.save(object: currentDate, forKey: lastFetchDateKey)
     }
 
     private func loadLastFetchDate() throws -> Date {
-        guard let lastFetchDate = UserDefaults.standard.object(forKey: lastFetchDateKey) as? Date else {
+        guard let lastFetchDate = userDefaultsStorage.loadObject(forKey: lastFetchDateKey) as? Date else {
             throw NSError(domain: "Invalid Date", code: 0, userInfo: nil)
         }
         return lastFetchDate
+    }
+}
+
+class FileStorage: JSONStorage {
+    func save<T: Encodable>(object: T, to fileName: String) throws {
+        let data = try JSONEncoder().encode(object)
+        try data.write(to: fileURL(for: fileName))
+    }
+
+    func load<T: Decodable>(from fileName: String) throws -> T {
+        let data = try Data(contentsOf: fileURL(for: fileName))
+        return try JSONDecoder().decode(T.self, from: data)
     }
 
     private func fileURL(for fileName: String) -> URL {
@@ -92,6 +115,15 @@ class StationDataRepository: DataRepository {
     }
 }
 
+class UserDefaultsStorageImpl: UserDefaultsStorage {
+    func save(object: Any, forKey key: String) {
+        UserDefaults.standard.set(object, forKey: key)
+    }
+
+    func loadObject(forKey key: String) -> Any? {
+        return UserDefaults.standard.object(forKey: key)
+    }
+}
 
 class APIClient {
     private let baseURL: String = "https://koleo.pl/api/v2/main/"
@@ -321,6 +353,7 @@ struct ContentView<Content: View>: View {
                         .padding(8)
                 }
             }
+            .navigationBarTitle("Journey Metric", displayMode: .inline)
         }
         .padding()
     }
