@@ -24,7 +24,7 @@ Launch the app on the simulator or your iOS device.
 2. **Enter station names:**
 Enter the names of start and end stations.
 
-3.**Select stations:**
+3. **Select stations:**
 The app will display matching stations and allow you to select them.
 
 4. **Calculate distance:**
