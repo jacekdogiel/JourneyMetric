@@ -103,7 +103,21 @@ final class StationViewModelTests: XCTestCase {
         let distance = sut.calculateDistance()
 
         // Assert
-        XCTAssertEqual(distance, "Odległość: 139.70 km") // The expected distance value may vary based on actual calculations.
+        XCTAssertEqual(distance, "Odległość: 139.70 km")
+    }
+    
+    func testCalculateDistanceWithIncorrectLocation() {
+        // Arrange
+        let startStation = Station(id: 1, name: "StartStation", latitude: nil, longitude: nil, hits: 5)
+        let endStation = Station(id: 2, name: "EndStation", latitude: 41.0, longitude: -75.0, hits: 3)
+        sut.selectedStartStation = startStation
+        sut.selectedEndStation = endStation
+
+        // Act
+        let distance = sut.calculateDistance()
+
+        // Assert
+        XCTAssertEqual(distance, "Nie można zmierzyć odległości.")
     }
 
     func testCalculateDistanceWithoutSelectedStations() {

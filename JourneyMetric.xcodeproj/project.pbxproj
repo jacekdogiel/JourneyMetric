@@ -132,7 +132,6 @@
 			children = (
 				B28B03D92ADE7FC200C6B24C /* DashboardView.swift */,
 				B28B03F82AE0190300C6B24C /* StationSelectionView.swift */,
-				B28B03FA2AE0193A00C6B24C /* StationViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -140,6 +139,7 @@
 		B28B03E72AE017A600C6B24C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				B28B03FA2AE0193A00C6B24C /* StationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
