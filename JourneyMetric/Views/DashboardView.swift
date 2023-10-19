@@ -18,9 +18,6 @@ struct DashboardView<Content: View>: View {
 
     var body: some View {
         content
-            .frame(maxWidth: .infinity)
-            .frame(maxHeight: .infinity)
-            .background(Color(white: 0.95))
     }
     
     @ViewBuilder
@@ -62,34 +59,41 @@ struct DashboardView<Content: View>: View {
         NavigationStack {
             Form {
                 Section(header: Text("Stacja początkowa")) {
-                    TextField("Wybierz stację", text: $viewModel.startStationText)
-                        .font(.title3)
-                        .padding(8)
-                        .background(Color(white: 0.9))
-                        .cornerRadius(8)
-                        .disableAutocorrection(true)
-                        .onTapGesture {
-                            self.isStartStationSelectionPresented = true
-                        }
-                        .navigationDestination(isPresented: $isStartStationSelectionPresented) {
-                            startStationSelection
-                        }
+                    Button(action: {
+                        viewModel.clearStartStations()
+                        isStartStationSelectionPresented = true
+                    }) {
+                        Text(viewModel.selectedStartStation == nil ? "Wybierz stację" : viewModel.startStationText)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.title3)
+                            .padding(8)
+                            .background(Color(white: 0.7))
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .navigationDestination(isPresented: $isStartStationSelectionPresented) {
+                        startStationSelection
+                    }
                 }
-                
+
                 Section(header: Text("Stacja docelowa")) {
-                    TextField("Wybierz stację", text: $viewModel.endStationText)
-                        .font(.title3)
-                        .padding(8)
-                        .background(Color(white: 0.9))
-                        .cornerRadius(8)
-                        .disableAutocorrection(true)
-                        .onTapGesture {
-                            self.isEndStationSelectionPresented = true
-                        }
-                        .navigationDestination(isPresented: $isEndStationSelectionPresented) {
-                            endStationSelection
-                        }
+                    Button(action: {
+                        viewModel.clearEndStations()
+                        self.isEndStationSelectionPresented = true
+                    }) {
+                        Text(viewModel.selectedEndStation == nil ? "Wybierz stację" : viewModel.endStationText)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.title3)
+                            .padding(8)
+                            .background(Color(white: 0.7))
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .navigationDestination(isPresented: $isEndStationSelectionPresented) {
+                        endStationSelection
+                    }
                 }
+
                 
                 Section(header: Text("Odległość")) {
                     Text(viewModel.calculateDistance())

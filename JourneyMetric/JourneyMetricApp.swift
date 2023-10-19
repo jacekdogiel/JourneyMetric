@@ -30,6 +30,7 @@ struct JourneyMetricApp: App {
                 startStationSelection: startStationSelection,
                 endStationSelection: endStationSelection
             )
+            .preferredColorScheme(.dark)
         }
     }
 }

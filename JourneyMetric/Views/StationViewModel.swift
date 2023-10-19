@@ -107,4 +107,16 @@ class StationViewModel: ObservableObject {
             endStation: endStation
         )
     }
+    
+    func clearStartStations() {
+        startStationText = ""
+        selectedStartStation = nil
+        searchedStartStations = []
+    }
+    
+    func clearEndStations() {
+        endStationText = ""
+        selectedEndStation = nil
+        searchedEndStations = []
+    }
 }

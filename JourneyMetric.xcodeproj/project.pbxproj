@@ -27,6 +27,7 @@
 		B28B04142AE1323B00C6B24C /* StationDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */; };
 		B28B04162AE1332000C6B24C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04152AE1332000C6B24C /* API.swift */; };
 		B28B04182AE1356E00C6B24C /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04172AE1356E00C6B24C /* DistanceCalculator.swift */; };
+		B28B041A2AE1684D00C6B24C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B28B04192AE1684D00C6B24C /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDataRepositoryTests.swift; sourceTree = "<group>"; };
 		B28B04152AE1332000C6B24C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		B28B04172AE1356E00C6B24C /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
+		B28B04192AE1684D00C6B24C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				B28B03DB2ADE7FC300C6B24C /* Assets.xcassets */,
 				B28B03DD2ADE7FC300C6B24C /* JourneyMetric.entitlements */,
 				B28B03DE2ADE7FC300C6B24C /* Preview Content */,
+				B28B04192AE1684D00C6B24C /* Launch Screen.storyboard */,
 			);
 			path = JourneyMetric;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B28B041A2AE1684D00C6B24C /* Launch Screen.storyboard in Resources */,
 				B28B03E02ADE7FC300C6B24C /* Preview Assets.xcassets in Resources */,
 				B28B03DC2ADE7FC300C6B24C /* Assets.xcassets in Resources */,
 			);
@@ -455,6 +459,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -491,6 +496,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

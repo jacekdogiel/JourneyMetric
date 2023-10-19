@@ -113,6 +113,36 @@ final class StationViewModelTests: XCTestCase {
         // Assert
         XCTAssertEqual(distance, "Wybierz stacje początkową i docelową")
     }
+    
+    func testClearStartStations() {
+        // Arrange
+        sut.startStationText = "Keyword"
+        sut.selectedStartStation = Station(id: 1, name: "StartStation", hits: 5)
+        sut.searchedStartStations = [Station(id: 2, name: "Station2", hits: 3)]
+
+        // Act
+        sut.clearStartStations()
+
+        // Assert
+        XCTAssertEqual(sut.startStationText, "")
+        XCTAssertNil(sut.selectedStartStation)
+        XCTAssertEqual(sut.searchedStartStations.count, 0)
+    }
+
+    func testClearEndStations() {
+        // Arrange
+        sut.endStationText = "Keyword"
+        sut.selectedEndStation = Station(id: 1, name: "EndStation", hits: 5)
+        sut.searchedEndStations = [Station(id: 2, name: "Station2", hits: 3)]
+
+        // Act
+        sut.clearEndStations()
+
+        // Assert
+        XCTAssertEqual(sut.endStationText, "")
+        XCTAssertNil(sut.selectedEndStation)
+        XCTAssertEqual(sut.searchedEndStations.count, 0)
+    }
 
     class MockDataRepository: DataRepository {
         var stationsToReturn: [Station]?
