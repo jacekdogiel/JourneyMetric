@@ -6,7 +6,6 @@
 //
 import Foundation
 import Combine
-import CoreLocation
 
 @MainActor
 class StationViewModel: ObservableObject {
@@ -22,6 +21,7 @@ class StationViewModel: ObservableObject {
     @Published var hasError: Bool = false
     
     private let dataRepository: DataRepository
+    private let distanceCalculator: DistanceCalculator
     private var cancellables: Set<AnyCancellable> = []
     
     private var startStationTextPublisher: AnyPublisher<String, Never> {
@@ -38,8 +38,10 @@ class StationViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    init(dataRepository: DataRepository = StationDataRepository()) {
+    init(dataRepository: DataRepository = StationDataRepository(),
+         distanceCalculator: DistanceCalculator = DistanceCalculator()) {
         self.dataRepository = dataRepository
+        self.distanceCalculator = distanceCalculator
         
         startStationTextPublisher
             .sink { [weak self] text in
@@ -100,14 +102,9 @@ class StationViewModel: ObservableObject {
             return "Wybierz stacje początkową i docelową"
         }
         
-        let startLocation = CLLocation(latitude: startStation.latitude ?? 0.0,
-                                       longitude: startStation.longitude ?? 0.0)
-        let endLocation = CLLocation(latitude: endStation.latitude ?? 0.0,
-                                     longitude: endStation.longitude ?? 0.0)
-        
-        let distanceInMeters = startLocation.distance(from: endLocation)
-        let distanceInKilometers = distanceInMeters / 1000
-        
-        return String(format: "Odległość: %.2f km", distanceInKilometers)
+        return distanceCalculator.calculateDistance(
+            startStation: startStation,
+            endStation: endStation
+        )
     }
 }
