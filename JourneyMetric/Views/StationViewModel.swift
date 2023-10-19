@@ -18,7 +18,7 @@ class StationViewModel: ObservableObject {
     @Published var selectedEndStation: Station?
     @Published var stations: [Station] = []
     @Published var keywords: [Keyword] = []
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     @Published var hasError: Bool = false
     
     private let dataRepository: DataRepository
@@ -59,21 +59,21 @@ class StationViewModel: ObservableObject {
             }
             .store(in: &cancellables)
         
-        fetch()
+        Task {
+            await fetch()
+        }
     }
     
-    func fetch() {
-        Task {
-            isLoading = true
-            hasError = false
-            do {
-                stations = try await dataRepository.getStations()
-                keywords = try await dataRepository.getKeywords()
-            } catch {
-                hasError = true
-            }
-            isLoading = false
+    func fetch() async {
+        isLoading = true
+        hasError = false
+        do {
+            stations = try await dataRepository.getStations()
+            keywords = try await dataRepository.getKeywords()
+        } catch {
+            hasError = true
         }
+        isLoading = false
     }
 
     func searchStations(with text: String) -> [Station] {

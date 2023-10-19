@@ -18,6 +18,8 @@ struct DashboardView<Content: View>: View {
 
     var body: some View {
         content
+            .frame(maxWidth: .infinity)
+            .frame(maxHeight: .infinity)
             .background(Color(white: 0.95))
     }
     
@@ -48,7 +50,9 @@ struct DashboardView<Content: View>: View {
                 .foregroundColor(.red)
                 .padding()
             Button("Ponów") {
-                viewModel.fetch()
+                Task {
+                    await viewModel.fetch()
+                }
             }
             .padding()
         }

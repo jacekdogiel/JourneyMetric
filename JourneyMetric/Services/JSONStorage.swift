@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class JSONStorage: FileStorage {
+final class JSONStorage: FileStorage {
     func save<T: Encodable>(object: T, to fileName: String) throws {
         let data = try JSONEncoder().encode(object)
         try data.write(to: fileURL(for: fileName))

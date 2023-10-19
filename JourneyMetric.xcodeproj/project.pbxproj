@@ -22,7 +22,21 @@
 		B28B03FD2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */; };
 		B28B03FF2AE019BE00C6B24C /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */; };
 		B28B04012AE019EE00C6B24C /* StationDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04002AE019EE00C6B24C /* StationDataRepository.swift */; };
+		B28B04102AE01D4500C6B24C /* StationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B040F2AE01D4500C6B24C /* StationViewModelTests.swift */; };
+		B28B04122AE131F200C6B24C /* JSONStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04112AE131F200C6B24C /* JSONStorageTests.swift */; };
+		B28B04142AE1323B00C6B24C /* StationDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */; };
+		B28B04162AE1332000C6B24C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04152AE1332000C6B24C /* API.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B28B040A2AE01D2500C6B24C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B28B03CC2ADE7FC100C6B24C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B28B03D32ADE7FC200C6B24C;
+			remoteInfo = JourneyMetric;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B28B03D42ADE7FC200C6B24C /* JourneyMetric.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JourneyMetric.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,10 +56,22 @@
 		B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorageImpl.swift; sourceTree = "<group>"; };
 		B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
 		B28B04002AE019EE00C6B24C /* StationDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDataRepository.swift; sourceTree = "<group>"; };
+		B28B04062AE01D2500C6B24C /* JourneyMetricTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JourneyMetricTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B28B040F2AE01D4500C6B24C /* StationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewModelTests.swift; sourceTree = "<group>"; };
+		B28B04112AE131F200C6B24C /* JSONStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorageTests.swift; sourceTree = "<group>"; };
+		B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDataRepositoryTests.swift; sourceTree = "<group>"; };
+		B28B04152AE1332000C6B24C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B28B03D12ADE7FC200C6B24C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B28B04032AE01D2500C6B24C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -59,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				B28B03D62ADE7FC200C6B24C /* JourneyMetric */,
+				B28B04072AE01D2500C6B24C /* JourneyMetricTests */,
 				B28B03D52ADE7FC200C6B24C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				B28B03D42ADE7FC200C6B24C /* JourneyMetric.app */,
+				B28B04062AE01D2500C6B24C /* JourneyMetricTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,8 +166,19 @@
 				B28B03EB2AE017F900C6B24C /* FileStorage.swift */,
 				B28B03EE2AE0182000C6B24C /* UserDefaultsStorage.swift */,
 				B28B03F02AE0184900C6B24C /* DataRepository.swift */,
+				B28B04152AE1332000C6B24C /* API.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B28B04072AE01D2500C6B24C /* JourneyMetricTests */ = {
+			isa = PBXGroup;
+			children = (
+				B28B040F2AE01D4500C6B24C /* StationViewModelTests.swift */,
+				B28B04112AE131F200C6B24C /* JSONStorageTests.swift */,
+				B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */,
+			);
+			path = JourneyMetricTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +201,24 @@
 			productReference = B28B03D42ADE7FC200C6B24C /* JourneyMetric.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B28B04052AE01D2500C6B24C /* JourneyMetricTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B28B040C2AE01D2500C6B24C /* Build configuration list for PBXNativeTarget "JourneyMetricTests" */;
+			buildPhases = (
+				B28B04022AE01D2500C6B24C /* Sources */,
+				B28B04032AE01D2500C6B24C /* Frameworks */,
+				B28B04042AE01D2500C6B24C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B28B040B2AE01D2500C6B24C /* PBXTargetDependency */,
+			);
+			name = JourneyMetricTests;
+			productName = JourneyMetricTests;
+			productReference = B28B04062AE01D2500C6B24C /* JourneyMetricTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -174,6 +231,11 @@
 				TargetAttributes = {
 					B28B03D32ADE7FC200C6B24C = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					B28B04052AE01D2500C6B24C = {
+						CreatedOnToolsVersion = 15.0.1;
+						LastSwiftMigration = 1500;
+						TestTargetID = B28B03D32ADE7FC200C6B24C;
 					};
 				};
 			};
@@ -191,6 +253,7 @@
 			projectRoot = "";
 			targets = (
 				B28B03D32ADE7FC200C6B24C /* JourneyMetric */,
+				B28B04052AE01D2500C6B24C /* JourneyMetricTests */,
 			);
 		};
 /* End PBXProject section */
@@ -202,6 +265,13 @@
 			files = (
 				B28B03E02ADE7FC300C6B24C /* Preview Assets.xcassets in Resources */,
 				B28B03DC2ADE7FC300C6B24C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B28B04042AE01D2500C6B24C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +288,7 @@
 				B28B03EC2AE017F900C6B24C /* FileStorage.swift in Sources */,
 				B28B03DA2ADE7FC200C6B24C /* DashboardView.swift in Sources */,
 				B28B03FF2AE019BE00C6B24C /* JSONStorage.swift in Sources */,
+				B28B04162AE1332000C6B24C /* API.swift in Sources */,
 				B28B04012AE019EE00C6B24C /* StationDataRepository.swift in Sources */,
 				B28B03F92AE0190300C6B24C /* StationSelectionView.swift in Sources */,
 				B28B03FB2AE0193A00C6B24C /* StationViewModel.swift in Sources */,
@@ -228,7 +299,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B28B04022AE01D2500C6B24C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B28B04102AE01D4500C6B24C /* StationViewModelTests.swift in Sources */,
+				B28B04122AE131F200C6B24C /* JSONStorageTests.swift in Sources */,
+				B28B04142AE1323B00C6B24C /* StationDataRepositoryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B28B040B2AE01D2500C6B24C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B28B03D32ADE7FC200C6B24C /* JourneyMetric */;
+			targetProxy = B28B040A2AE01D2500C6B24C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B28B03E12ADE7FC300C6B24C /* Debug */ = {
@@ -417,6 +506,48 @@
 			};
 			name = Release;
 		};
+		B28B040D2AE01D2500C6B24C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacek.dogiel.JourneyMetricTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JourneyMetric.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JourneyMetric";
+			};
+			name = Debug;
+		};
+		B28B040E2AE01D2500C6B24C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacek.dogiel.JourneyMetricTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JourneyMetric.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JourneyMetric";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -434,6 +565,15 @@
 			buildConfigurations = (
 				B28B03E42ADE7FC300C6B24C /* Debug */,
 				B28B03E52ADE7FC300C6B24C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B28B040C2AE01D2500C6B24C /* Build configuration list for PBXNativeTarget "JourneyMetricTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B28B040D2AE01D2500C6B24C /* Debug */,
+				B28B040E2AE01D2500C6B24C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

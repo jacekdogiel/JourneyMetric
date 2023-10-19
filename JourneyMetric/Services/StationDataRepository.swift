@@ -7,8 +7,8 @@
 
 import Foundation
 
-class StationDataRepository: DataRepository {
-    private let apiClient: APIClient
+final class StationDataRepository: DataRepository {
+    private let apiClient: API
     private let stationsFileName = "stations.json"
     private let keywordsFileName = "keywords.json"
     private let lastFetchDateKey = "lastFetchDateKey"
@@ -16,7 +16,7 @@ class StationDataRepository: DataRepository {
     private let jsonStorage: FileStorage
     private let userDefaultsStorage: UserDefaultsStorage
 
-    init(apiClient: APIClient = APIClient(),
+    init(apiClient: API = APIClient(),
          jsonStorage: FileStorage = JSONStorage(),
          userDefaultsStorage: UserDefaultsStorage = UserDefaultsStorageImpl()) {
         self.apiClient = apiClient

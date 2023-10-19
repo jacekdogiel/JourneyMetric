@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class UserDefaultsStorageImpl: UserDefaultsStorage {
+final class UserDefaultsStorageImpl: UserDefaultsStorage {
     func save(object: Any, forKey key: String) {
         UserDefaults.standard.set(object, forKey: key)
     }

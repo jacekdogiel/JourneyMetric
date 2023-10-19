@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class APIClient {
+final class APIClient: API {
     private let baseURL: String = "https://koleo.pl/api/v2/main/"
 
     func fetchStations() async throws -> [Station] {
