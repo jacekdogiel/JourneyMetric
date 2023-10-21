@@ -7,81 +7,71 @@
 
 import Foundation
 
-final class StationDataRepository: DataRepository {
+actor StationDataRepository<StationCache: DiskCacheProtocol, KeywordCache: DiskCacheProtocol>: DataRepository where StationCache.V == [Station], KeywordCache.V == [Keyword] {
     private let apiClient: API
-    private let stationsFileName = "stations.json"
-    private let keywordsFileName = "keywords.json"
-    private let lastFetchDateKey = "lastFetchDateKey"
-
-    private let jsonStorage: FileStorage
-    private let userDefaultsStorage: UserDefaultsStorage
+    private let stationsCache: StationCache
+    private let keywordsCache: KeywordCache
 
     init(apiClient: API = APIClient(),
-         jsonStorage: FileStorage = JSONStorage(),
-         userDefaultsStorage: UserDefaultsStorage = UserDefaultsStorageImpl()) {
+         stationsCache: StationCache = DiskCache(filename: "stations", expirationInterval: 24 * 60 * 60),
+         keywordsCache: KeywordCache = DiskCache(filename: "keywords", expirationInterval: 24 * 60 * 60)) {
         self.apiClient = apiClient
-        self.jsonStorage = jsonStorage
-        self.userDefaultsStorage = userDefaultsStorage
+        self.stationsCache = stationsCache
+        self.keywordsCache = keywordsCache
     }
 
     func getStations() async throws -> [Station] {
-        if try await shouldFetchData() {
-            try await fetchData()
+        if await shouldFetchStations() {
+            try await fetchStations()
         }
-        return try loadStationsFromFile()
+        return try await loadStationsFromCache()
     }
 
     func getKeywords() async throws -> [Keyword] {
-        if try await shouldFetchData() {
-            try await fetchData()
+        if await shouldFetchKeywords() {
+            try await fetchKeywords()
         }
-        return try loadKeywordsFromFile()
+        return try await loadKeywordsFromCache()
     }
 
-    private func shouldFetchData() async throws -> Bool {
-        guard let lastFetchDate = try? loadLastFetchDate() else {
-            return true
-        }
-
-        let currentDate = Date()
-        let timeInterval = currentDate.timeIntervalSince(lastFetchDate)
-        return timeInterval > 24 * 60 * 60
+    private func shouldFetchStations() async -> Bool {
+        try? await stationsCache.loadFromDisk()
+        return await stationsCache.value(forKey: "stations") == nil
     }
 
-    private func fetchData() async throws {
+    private func shouldFetchKeywords() async -> Bool {
+        try? await keywordsCache.loadFromDisk()
+        return await keywordsCache.value(forKey: "keywords") == nil
+    }
+
+    private func fetchStations() async throws {
         let fetchedStations = try await apiClient.fetchStations()
+        try await saveStationsToCache(stations: fetchedStations)
+    }
+
+    private func fetchKeywords() async throws {
         let fetchedKeywords = try await apiClient.fetchKeywords()
-
-        try saveStationsToFile(stations: fetchedStations)
-        try saveKeywordsToFile(keywords: fetchedKeywords)
-        try saveLastFetchDate()
+        try await saveKeywordsToCache(keywords: fetchedKeywords)
     }
 
-    private func saveStationsToFile(stations: [Station]) throws {
-        try jsonStorage.save(object: stations, to: stationsFileName)
+    private func saveStationsToCache(stations: [Station]) async throws {
+        await stationsCache.setValue(stations, forKey: "stations")
+        try await stationsCache.saveToDisk()
     }
 
-    private func loadStationsFromFile() throws -> [Station] {
-        return try jsonStorage.load(from: stationsFileName)
+    private func loadStationsFromCache() async throws -> [Station] {
+        try await stationsCache.loadFromDisk()
+        return await stationsCache.value(forKey: "stations") ?? []
     }
 
-    private func saveKeywordsToFile(keywords: [Keyword]) throws {
-        try jsonStorage.save(object: keywords, to: keywordsFileName)
+    private func saveKeywordsToCache(keywords: [Keyword]) async throws {
+        await keywordsCache.setValue(keywords, forKey: "keywords")
+        try await keywordsCache.saveToDisk()
     }
 
-    private func loadKeywordsFromFile() throws -> [Keyword] {
-        return try jsonStorage.load(from: keywordsFileName)
-    }
-
-    private func saveLastFetchDate() throws {
-        let currentDate = Date()
-        userDefaultsStorage.save(object: currentDate, forKey: lastFetchDateKey)
-    }
-
-    private func loadLastFetchDate() throws -> Date {
-        guard let lastFetchDate = userDefaultsStorage.loadObject(forKey: lastFetchDateKey) as? Date else {
-            throw NSError(domain: "Invalid Date", code: 0, userInfo: nil)
-        }
-        return lastFetchDate
+    private func loadKeywordsFromCache() async throws -> [Keyword] {
+        try await keywordsCache.loadFromDisk()
+        return await keywordsCache.value(forKey: "keywords") ?? []
     }
 }
+

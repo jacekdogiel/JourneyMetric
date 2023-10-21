@@ -8,59 +8,31 @@ import XCTest
 @testable import JourneyMetric
 
 final class StationDataRepositoryTests: XCTestCase {
-    var sut: StationDataRepository!
-    var mockUserDefaultsStorage: MockUserDefaultsStorage!
-    var mockJSONStorage: MockJSONStorage!
+    var sut: StationDataRepository<MockDiskCache<[Station]>, MockDiskCache<[Keyword]>>!
     var mockAPIClient: MockAPIClient!
+    var mockStationsDiskCache: MockDiskCache<[Station]>!
+    var mockKeywordDiskCache: MockDiskCache<[Keyword]>!
 
     override func setUpWithError() throws {
-        mockUserDefaultsStorage = MockUserDefaultsStorage()
-        mockJSONStorage = MockJSONStorage()
         mockAPIClient = MockAPIClient()
-        sut = StationDataRepository(apiClient: mockAPIClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
+        mockStationsDiskCache = MockDiskCache()
+        mockKeywordDiskCache = MockDiskCache()
+        sut = StationDataRepository(apiClient: mockAPIClient, stationsCache: mockStationsDiskCache, keywordsCache: mockKeywordDiskCache)
     }
 
     override func tearDownWithError() throws {
         sut = nil
-        mockUserDefaultsStorage = nil
-        mockJSONStorage = nil
         mockAPIClient = nil
-    }
-
-    func testShouldFetchDataWhenLastFetchDateIsNil() async throws {
-        // Arrange
-        let mockApiClient = MockAPIClient()
-        mockApiClient.stationsToReturn = [Station(id: 1, name: "Station1", hits: 5)]
-        mockApiClient.keywordsToReturn = [Keyword(id: 1, keyword: "Keyword1", stationID: 1)]
-        
-        mockUserDefaultsStorage.loadedObject = nil
-        
-        let stationsToLoad = [Station(id: 1, name: "Station1", hits: 5)]
-        mockJSONStorage.loadedStations = stationsToLoad
-        
-        let sut = StationDataRepository(apiClient: mockApiClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
-
-        // Act
-        let stations = try await sut.getStations()
-
-        // Assert
-        XCTAssertEqual(stations.count, 1)
+        mockStationsDiskCache = nil
+        mockKeywordDiskCache = nil
     }
 
     func testFetchStations() async throws {
         // Arrange
         let mockApiClient = MockAPIClient()
         mockApiClient.stationsToReturn = [Station(id: 1, name: "Station1", hits: 5)]
-        mockApiClient.keywordsToReturn = [Keyword(id: 1, keyword: "Keyword1", stationID: 1)]
         
-        let currentDate = Date()
-        let expiredDate = currentDate.addingTimeInterval(-25 * 60 * 60)
-        mockUserDefaultsStorage.loadedObject = expiredDate
-        
-        let stationsToLoad = [Station(id: 1, name: "Station1", hits: 5)]
-        mockJSONStorage.loadedStations = stationsToLoad
-        
-        let sut = StationDataRepository(apiClient: mockApiClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
+        let sut = StationDataRepository(apiClient: mockApiClient, stationsCache: mockStationsDiskCache, keywordsCache: mockKeywordDiskCache)
 
         // Act
         let stations = try await sut.getStations()
@@ -72,17 +44,9 @@ final class StationDataRepositoryTests: XCTestCase {
     func testFetchKeywords() async throws {
         // Arrange
         let mockApiClient = MockAPIClient()
-        mockApiClient.stationsToReturn = [Station(id: 1, name: "Station1", hits: 5)]
         mockApiClient.keywordsToReturn = [Keyword(id: 1, keyword: "Keyword1", stationID: 1)]
         
-        let currentDate = Date()
-        let expiredDate = currentDate.addingTimeInterval(-25 * 60 * 60)
-        mockUserDefaultsStorage.loadedObject = expiredDate
-        
-        let keywordsToLoad = [Keyword(id: 1, keyword: "Keyword1", stationID: 1)]
-        mockJSONStorage.loadedKeywords = keywordsToLoad
-        
-        let sut = StationDataRepository(apiClient: mockApiClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
+        let sut = StationDataRepository(apiClient: mockApiClient, stationsCache: mockStationsDiskCache, keywordsCache: mockKeywordDiskCache)
 
         // Act
         let keywords = try await sut.getKeywords()
@@ -95,7 +59,8 @@ final class StationDataRepositoryTests: XCTestCase {
         // Arrange
         let mockApiClient = MockAPIClient()
         mockApiClient.error = NSError(domain: "TestErrorDomain", code: 42, userInfo: nil)
-        let sut = StationDataRepository(apiClient: mockApiClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
+        
+        let sut = StationDataRepository(apiClient: mockApiClient, stationsCache: mockStationsDiskCache, keywordsCache: mockKeywordDiskCache)
 
         // Act & Assert
         do {
@@ -113,33 +78,23 @@ final class StationDataRepositoryTests: XCTestCase {
         let mockApiClient = MockAPIClient()
         mockApiClient.stationsToReturn = stationsToSave
         
-        let currentDate = Date()
-        let expiredDate = currentDate.addingTimeInterval(-25 * 60 * 60)
-        mockUserDefaultsStorage.loadedObject = expiredDate
-        
-        mockJSONStorage.loadedStations = stationsToSave
-        
-        let sut = StationDataRepository(apiClient: mockApiClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
+        let sut = StationDataRepository(apiClient: mockApiClient, stationsCache: mockStationsDiskCache, keywordsCache: mockKeywordDiskCache)
         
         // Act
         _ = try await sut.getStations()
+        let saveCalled = await mockStationsDiskCache.saveToDiskCalled
 
         // Assert
-        XCTAssertEqual(mockJSONStorage.savedStations, stationsToSave)
+        XCTAssertTrue(saveCalled)
     }
 
     func testLoadStationsFromFileSuccess() async throws {
         // Arrange
         let stationsFromFile = [Station(id: 1, name: "Station1", hits: 5)]
         
-        let currentDate = Date()
-        let validDate = currentDate.addingTimeInterval(-23 * 60 * 60)
-        mockUserDefaultsStorage.loadedObject = validDate
+        let sut = StationDataRepository(apiClient: mockAPIClient, stationsCache: mockStationsDiskCache, keywordsCache: mockKeywordDiskCache)
         
-        mockJSONStorage.loadedStations = stationsFromFile
-        
-        let sut = StationDataRepository(apiClient: mockAPIClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
-        
+        await mockStationsDiskCache.setStoredValue(stationsFromFile)
         // Act
         let stations = try await sut.getStations()
 
@@ -149,13 +104,9 @@ final class StationDataRepositoryTests: XCTestCase {
 
     func testLoadStationsFromFileFailure() async throws {
         // Arrange
-        let currentDate = Date()
-        let validDate = currentDate.addingTimeInterval(-23 * 60 * 60)
-        mockUserDefaultsStorage.loadedObject = validDate
+        let sut = StationDataRepository(apiClient: mockAPIClient, stationsCache: mockStationsDiskCache, keywordsCache: mockKeywordDiskCache)
         
-        mockJSONStorage.error = NSError(domain: "TestErrorDomain", code: 42, userInfo: nil)
-        
-        let sut = StationDataRepository(apiClient: mockAPIClient, jsonStorage: mockJSONStorage, userDefaultsStorage: mockUserDefaultsStorage)
+        await mockStationsDiskCache.setError(CacheError.loadError)
         
         // Act & Assert
         do {
@@ -166,52 +117,59 @@ final class StationDataRepositoryTests: XCTestCase {
         }
     }
     
-    class MockUserDefaultsStorage: UserDefaultsStorage {
-        var savedObject: Any?
-        var loadedObject: Any?
-
-        func save(object: Any, forKey key: String) {
-            savedObject = object
-        }
-
-        func loadObject(forKey key: String) -> Any? {
-            return loadedObject
-        }
+    enum CacheError: Error {
+        case loadError
     }
-
-    class MockJSONStorage: FileStorage {
-        var savedStations: [Station]?
-        var savedKeywords: [Keyword]?
-        var loadedStations: [Station]?
-        var loadedKeywords: [Keyword]?
+    
+    actor MockDiskCache<V: Codable>: DiskCacheProtocol {
+        var saveToDiskCalled = false
+        var loadFromDiskCalled = false
         var error: Error?
+        var expirationInterval: TimeInterval = 3 * 60
 
-        func save<T>(object: T, to fileName: String) throws where T : Encodable {
+        private var storedValue: V?
+        
+        func setError(_ error: Error) {
+            self.error = error
+        }
+
+        func setStoredValue(_ value: V?) {
+            storedValue = value
+        }
+
+        func getStoredValue() -> V? {
+            return storedValue
+        }
+
+        func saveToDisk() throws {
+            saveToDiskCalled = true
+        }
+
+        func loadFromDisk() throws {
+            loadFromDiskCalled = true
+            
             if let error = error {
                 throw error
-            }
-
-            if T.self == [Station].self {
-                savedStations = object as? [Station]
-            } else if T.self == [Keyword].self {
-                savedKeywords = object as? [Keyword]
             }
         }
 
-        func load<T>(from fileName: String) throws -> T where T : Decodable {
-            if let error = error {
-                throw error
-            }
+        func setValue(_ value: V?, forKey key: String) {
+            setStoredValue(value)
+        }
 
-            if T.self == [Station].self {
-                return loadedStations as! T
-            } else if T.self == [Keyword].self {
-                return loadedKeywords as! T
-            }
+        func value(forKey key: String) -> V? {
+            return getStoredValue()
+        }
 
-            fatalError("Unsupported type for loading")
+        func removeValue(forKey key: String) {
+            setStoredValue(nil)
+        }
+
+        func removeAllValues() {
+            setStoredValue(nil)
         }
     }
+
 
     class MockAPIClient: API {
         var stationsToReturn: [Station]?

@@ -19,15 +19,17 @@
 		B28B03F72AE018D800C6B24C /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03F62AE018D800C6B24C /* Keyword.swift */; };
 		B28B03F92AE0190300C6B24C /* StationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03F82AE0190300C6B24C /* StationSelectionView.swift */; };
 		B28B03FB2AE0193A00C6B24C /* StationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FA2AE0193A00C6B24C /* StationViewModel.swift */; };
-		B28B03FD2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */; };
-		B28B03FF2AE019BE00C6B24C /* JSONStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */; };
 		B28B04012AE019EE00C6B24C /* StationDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04002AE019EE00C6B24C /* StationDataRepository.swift */; };
 		B28B04102AE01D4500C6B24C /* StationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B040F2AE01D4500C6B24C /* StationViewModelTests.swift */; };
-		B28B04122AE131F200C6B24C /* JSONStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04112AE131F200C6B24C /* JSONStorageTests.swift */; };
 		B28B04142AE1323B00C6B24C /* StationDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */; };
 		B28B04162AE1332000C6B24C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04152AE1332000C6B24C /* API.swift */; };
 		B28B04182AE1356E00C6B24C /* DistanceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04172AE1356E00C6B24C /* DistanceCalculator.swift */; };
 		B28B041A2AE1684D00C6B24C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B28B04192AE1684D00C6B24C /* Launch Screen.storyboard */; };
+		B28B04202AE28F7B00C6B24C /* KeysTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B041C2AE28F7B00C6B24C /* KeysTracker.swift */; };
+		B28B04212AE28F7B00C6B24C /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B041D2AE28F7B00C6B24C /* Cache.swift */; };
+		B28B04222AE28F7B00C6B24C /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B041E2AE28F7B00C6B24C /* DiskCache.swift */; };
+		B28B04232AE28F7B00C6B24C /* CacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B041F2AE28F7B00C6B24C /* CacheEntry.swift */; };
+		B28B04272AE3CD6200C6B24C /* DiskCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04262AE3CD6200C6B24C /* DiskCacheTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,16 +57,18 @@
 		B28B03F62AE018D800C6B24C /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
 		B28B03F82AE0190300C6B24C /* StationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationSelectionView.swift; sourceTree = "<group>"; };
 		B28B03FA2AE0193A00C6B24C /* StationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewModel.swift; sourceTree = "<group>"; };
-		B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorageImpl.swift; sourceTree = "<group>"; };
-		B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorage.swift; sourceTree = "<group>"; };
 		B28B04002AE019EE00C6B24C /* StationDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDataRepository.swift; sourceTree = "<group>"; };
 		B28B04062AE01D2500C6B24C /* JourneyMetricTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JourneyMetricTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28B040F2AE01D4500C6B24C /* StationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewModelTests.swift; sourceTree = "<group>"; };
-		B28B04112AE131F200C6B24C /* JSONStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStorageTests.swift; sourceTree = "<group>"; };
 		B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationDataRepositoryTests.swift; sourceTree = "<group>"; };
 		B28B04152AE1332000C6B24C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		B28B04172AE1356E00C6B24C /* DistanceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCalculator.swift; sourceTree = "<group>"; };
 		B28B04192AE1684D00C6B24C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		B28B041C2AE28F7B00C6B24C /* KeysTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeysTracker.swift; sourceTree = "<group>"; };
+		B28B041D2AE28F7B00C6B24C /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		B28B041E2AE28F7B00C6B24C /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
+		B28B041F2AE28F7B00C6B24C /* CacheEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheEntry.swift; sourceTree = "<group>"; };
+		B28B04262AE3CD6200C6B24C /* DiskCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCacheTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,10 +160,9 @@
 		B28B03E92AE017C800C6B24C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B28B041B2AE28F4D00C6B24C /* Cache */,
 				B28B03EA2AE017DD00C6B24C /* Protocols */,
 				B28B03F22AE0187900C6B24C /* APIClient.swift */,
-				B28B03FC2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift */,
-				B28B03FE2AE019BE00C6B24C /* JSONStorage.swift */,
 				B28B04002AE019EE00C6B24C /* StationDataRepository.swift */,
 				B28B04172AE1356E00C6B24C /* DistanceCalculator.swift */,
 			);
@@ -181,10 +184,21 @@
 			isa = PBXGroup;
 			children = (
 				B28B040F2AE01D4500C6B24C /* StationViewModelTests.swift */,
-				B28B04112AE131F200C6B24C /* JSONStorageTests.swift */,
 				B28B04132AE1323B00C6B24C /* StationDataRepositoryTests.swift */,
+				B28B04262AE3CD6200C6B24C /* DiskCacheTests.swift */,
 			);
 			path = JourneyMetricTests;
+			sourceTree = "<group>";
+		};
+		B28B041B2AE28F4D00C6B24C /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				B28B041D2AE28F7B00C6B24C /* Cache.swift */,
+				B28B041F2AE28F7B00C6B24C /* CacheEntry.swift */,
+				B28B041E2AE28F7B00C6B24C /* DiskCache.swift */,
+				B28B041C2AE28F7B00C6B24C /* KeysTracker.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,12 +304,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B28B04182AE1356E00C6B24C /* DistanceCalculator.swift in Sources */,
+				B28B04232AE28F7B00C6B24C /* CacheEntry.swift in Sources */,
 				B28B03EF2AE0182000C6B24C /* UserDefaultsStorage.swift in Sources */,
-				B28B03FD2AE0197E00C6B24C /* UserDefaultsStorageImpl.swift in Sources */,
 				B28B03F12AE0184900C6B24C /* DataRepository.swift in Sources */,
+				B28B04222AE28F7B00C6B24C /* DiskCache.swift in Sources */,
+				B28B04212AE28F7B00C6B24C /* Cache.swift in Sources */,
+				B28B04202AE28F7B00C6B24C /* KeysTracker.swift in Sources */,
 				B28B03EC2AE017F900C6B24C /* FileStorage.swift in Sources */,
 				B28B03DA2ADE7FC200C6B24C /* DashboardView.swift in Sources */,
-				B28B03FF2AE019BE00C6B24C /* JSONStorage.swift in Sources */,
 				B28B04162AE1332000C6B24C /* API.swift in Sources */,
 				B28B04012AE019EE00C6B24C /* StationDataRepository.swift in Sources */,
 				B28B03F92AE0190300C6B24C /* StationSelectionView.swift in Sources */,
@@ -312,7 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B28B04102AE01D4500C6B24C /* StationViewModelTests.swift in Sources */,
-				B28B04122AE131F200C6B24C /* JSONStorageTests.swift in Sources */,
+				B28B04272AE3CD6200C6B24C /* DiskCacheTests.swift in Sources */,
 				B28B04142AE1323B00C6B24C /* StationDataRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
