@@ -34,8 +34,7 @@ final class StationViewModelTests: XCTestCase {
         // Assert
         XCTAssertEqual(sut.stations.count, 1)
         XCTAssertEqual(sut.keywords.count, 1)
-        XCTAssertFalse(sut.isLoading)
-        XCTAssertFalse(sut.hasError)
+        XCTAssertEqual(sut.phase, .success)
     }
 
     func testFetchFailure() async throws {
@@ -46,8 +45,7 @@ final class StationViewModelTests: XCTestCase {
         await sut.fetch()
 
         // Assert
-        XCTAssertFalse(sut.isLoading)
-        XCTAssertTrue(sut.hasError)
+        XCTAssertEqual(sut.phase, .failure)
         XCTAssertEqual(sut.stations.count, 0)
         XCTAssertEqual(sut.keywords.count, 0)
     }

@@ -22,12 +22,13 @@ struct DashboardView<Content: View>: View {
     
     @ViewBuilder
     private var content: some View {
-        if viewModel.isLoading {
+        switch viewModel.phase {
+        case .empty:
             loadingView
-        } else if viewModel.hasError {
-            errorView
-        } else {
+        case .success:
             mainView
+        case .failure:
+            errorView
         }
     }
     

@@ -7,8 +7,15 @@
 import Foundation
 import Combine
 
+enum DataFetchPhase {
+    case empty
+    case success
+    case failure
+}
+
 @MainActor
 class StationViewModel: ObservableObject {
+    @Published var phase = DataFetchPhase.empty
     @Published var startStationText: String = ""
     @Published var endStationText: String = ""
     @Published var searchedStartStations: [Station] = []
@@ -17,8 +24,6 @@ class StationViewModel: ObservableObject {
     @Published var selectedEndStation: Station?
     @Published var stations: [Station] = []
     @Published var keywords: [Keyword] = []
-    @Published var isLoading: Bool = true
-    @Published var hasError: Bool = false
     
     private let dataRepository: DataRepository
     private let distanceCalculator: DistanceCalculator
@@ -67,15 +72,14 @@ class StationViewModel: ObservableObject {
     }
     
     func fetch() async {
-        isLoading = true
-        hasError = false
+        phase = .empty
         do {
             stations = try await dataRepository.getStations()
             keywords = try await dataRepository.getKeywords()
+            phase = .success
         } catch {
-            hasError = true
+            phase = .failure
         }
-        isLoading = false
     }
 
     func searchStations(with text: String) -> [Station] {
