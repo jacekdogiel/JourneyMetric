@@ -30,6 +30,10 @@
 		B28B04222AE28F7B00C6B24C /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B041E2AE28F7B00C6B24C /* DiskCache.swift */; };
 		B28B04232AE28F7B00C6B24C /* CacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B041F2AE28F7B00C6B24C /* CacheEntry.swift */; };
 		B28B04272AE3CD6200C6B24C /* DiskCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04262AE3CD6200C6B24C /* DiskCacheTests.swift */; };
+		B28B042A2AE69BFE00C6B24C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04292AE69BFE00C6B24C /* Coordinator.swift */; };
+		B28B042C2AE69CE400C6B24C /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B042B2AE69CE400C6B24C /* CoordinatorView.swift */; };
+		B28B04302AE6A36400C6B24C /* StartStationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B042F2AE6A36400C6B24C /* StartStationSelectionView.swift */; };
+		B28B04322AE6A3D300C6B24C /* EndStationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28B04312AE6A3D300C6B24C /* EndStationSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,10 @@
 		B28B041E2AE28F7B00C6B24C /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		B28B041F2AE28F7B00C6B24C /* CacheEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheEntry.swift; sourceTree = "<group>"; };
 		B28B04262AE3CD6200C6B24C /* DiskCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCacheTests.swift; sourceTree = "<group>"; };
+		B28B04292AE69BFE00C6B24C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		B28B042B2AE69CE400C6B24C /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
+		B28B042F2AE6A36400C6B24C /* StartStationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartStationSelectionView.swift; sourceTree = "<group>"; };
+		B28B04312AE6A3D300C6B24C /* EndStationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndStationSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +118,7 @@
 		B28B03D62ADE7FC200C6B24C /* JourneyMetric */ = {
 			isa = PBXGroup;
 			children = (
+				B28B04282AE69BEF00C6B24C /* Coordinators */,
 				B28B03E92AE017C800C6B24C /* Services */,
 				B28B03E82AE017B300C6B24C /* Models */,
 				B28B03E72AE017A600C6B24C /* ViewModels */,
@@ -136,6 +145,9 @@
 			children = (
 				B28B03D92ADE7FC200C6B24C /* DashboardView.swift */,
 				B28B03F82AE0190300C6B24C /* StationSelectionView.swift */,
+				B28B042B2AE69CE400C6B24C /* CoordinatorView.swift */,
+				B28B042F2AE6A36400C6B24C /* StartStationSelectionView.swift */,
+				B28B04312AE6A3D300C6B24C /* EndStationSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +211,14 @@
 				B28B041C2AE28F7B00C6B24C /* KeysTracker.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		B28B04282AE69BEF00C6B24C /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				B28B04292AE69BFE00C6B24C /* Coordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,16 +326,20 @@
 				B28B04182AE1356E00C6B24C /* DistanceCalculator.swift in Sources */,
 				B28B04232AE28F7B00C6B24C /* CacheEntry.swift in Sources */,
 				B28B03EF2AE0182000C6B24C /* UserDefaultsStorage.swift in Sources */,
+				B28B04322AE6A3D300C6B24C /* EndStationSelectionView.swift in Sources */,
 				B28B03F12AE0184900C6B24C /* DataRepository.swift in Sources */,
 				B28B04222AE28F7B00C6B24C /* DiskCache.swift in Sources */,
 				B28B04212AE28F7B00C6B24C /* Cache.swift in Sources */,
 				B28B04202AE28F7B00C6B24C /* KeysTracker.swift in Sources */,
 				B28B03EC2AE017F900C6B24C /* FileStorage.swift in Sources */,
+				B28B042A2AE69BFE00C6B24C /* Coordinator.swift in Sources */,
 				B28B03DA2ADE7FC200C6B24C /* DashboardView.swift in Sources */,
 				B28B04162AE1332000C6B24C /* API.swift in Sources */,
+				B28B04302AE6A36400C6B24C /* StartStationSelectionView.swift in Sources */,
 				B28B04012AE019EE00C6B24C /* StationDataRepository.swift in Sources */,
 				B28B03F92AE0190300C6B24C /* StationSelectionView.swift in Sources */,
 				B28B03FB2AE0193A00C6B24C /* StationViewModel.swift in Sources */,
+				B28B042C2AE69CE400C6B24C /* CoordinatorView.swift in Sources */,
 				B28B03D82ADE7FC200C6B24C /* JourneyMetricApp.swift in Sources */,
 				B28B03F72AE018D800C6B24C /* Keyword.swift in Sources */,
 				B28B03F32AE0187900C6B24C /* APIClient.swift in Sources */,
