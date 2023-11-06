@@ -6,12 +6,15 @@
 //
 
 import XCTest
+import Combine
+
 @testable import JourneyMetric
 
 @MainActor
 final class StationViewModelTests: XCTestCase {
     var sut: StationViewModel!
     var mockDataRepository: MockDataRepository!
+    var cancellables = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
         mockDataRepository = MockDataRepository()
@@ -21,6 +24,7 @@ final class StationViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         sut = nil
         mockDataRepository = nil
+        cancellables.removeAll()
     }
 
     func testFetchSuccess() async throws {
@@ -54,10 +58,20 @@ final class StationViewModelTests: XCTestCase {
         // Arrange
         sut.keywords = [Keyword(id: 1, keyword: "Keyword1", stationID: 1)]
         sut.stations = [Station(id: 1, name: "Station1", hits: 5)]
+        let expectation = XCTestExpectation(description: "should return 1 station")
+        var resultStations: [Station] = []
 
         // Act
         sut.startStationText = "Keyword"
-        let resultStations = sut.searchStations(with: sut.startStationText)
+        sut.$searchedStartStations
+            .dropFirst()
+            .sink { stations in
+                resultStations = stations
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+        
+        wait(for: [expectation], timeout: 5)
 
         // Assert
         XCTAssertEqual(resultStations.count, 1)

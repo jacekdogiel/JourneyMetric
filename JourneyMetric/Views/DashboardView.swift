@@ -13,6 +13,9 @@ struct DashboardView: View {
 
     var body: some View {
         content
+            .task {
+                await viewModel.fetch()
+            }
     }
     
     @ViewBuilder

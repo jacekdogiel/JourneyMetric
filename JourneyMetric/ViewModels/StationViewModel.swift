@@ -65,17 +65,16 @@ class StationViewModel: ObservableObject {
                 self.searchedEndStations = self.searchStations(with: text)
             }
             .store(in: &cancellables)
-        
-        Task {
-            await fetch()
-        }
     }
     
     func fetch() async {
         phase = .empty
         do {
-            stations = try await dataRepository.getStations()
-            keywords = try await dataRepository.getKeywords()
+            async let fetchedStations = dataRepository.getStations()
+            async let fetchedKeywords = dataRepository.getKeywords()
+            let (stations, keywords) = await (try fetchedStations, try fetchedKeywords)
+            self.stations = stations
+            self.keywords = keywords
             phase = .success
         } catch {
             phase = .failure
